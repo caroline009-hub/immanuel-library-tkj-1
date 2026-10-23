@@ -1,3 +1,7 @@
+<?php
+session_start();
+$user = $_SESSION["user"];
+?>
 
 <header class="app-topbar">
   <div class="page-title">
@@ -7,8 +11,10 @@
   <div class="topbar-user">
     <span class="avatar">BS</span>
     <div>
-      Budi Santoso<br>
+      <?= $user["name"] ?? "Guest" ?>
+    <br>
       <span class="badge badge-member" style="margin-top:2px;">Member</span>
+    <?= $user["role"] === "member" ? "Member" : "Admin" ?>
     </div>
   </div>
 </header>

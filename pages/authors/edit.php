@@ -1,3 +1,25 @@
+<?php
+session_start();
+require_once __DIR__ . "/../../repositories/author-repository.php";
+require_once __DIR__ . "/../repositories/category-repository.php";
+require_once __DIR__ . "/../repositories/book-repository.php";
+require_once __DIR__ . "/../repositories/author-repository.php";
+
+$id = $_GET("id");
+$book = getBook($id);
+$categories = getCategories();
+$author = getAuthor();
+
+$book = array_merge($book, $old);
+
+$errors = $_SESSION["errors"] ?? [];
+$old = $_SESSION["old"] ?? [];
+unset($_SESSION["errors"], $_SESSION["old"]);
+
+$pageTitle = "Edit Penulis";
+$pageSubtitle = "Perbarui data penulis";
+?>
+
 <!DOCTYPE html>
 <html lang="id">
 
@@ -9,19 +31,11 @@
 </head>
 
 <body>
- <?php
-require_once __DIR__ . "/../../repositories/author-repository.php";
-$author = getAuthor();
-?>
   <div class="app-shell">
-    <?php require_once __DIR__ . "/../../components/admin/sidebar.php"; ?>
+    <?php require_once __DIR__ . "/../../components/admin/sidebar.php" ?>
 
     <main class="app-main">
-      <?php
-       $pageTitle = "Edit Penulis";
-       $pageSubtitle = "Ubah informasi data penulis";
-       require_once __DIR__ . "/../../components/admin/topbar.php";
-      ?>
+      <?php require_once __DIR__ . "/../../components/admin/topbar.php" ?>
 
       <div class="app-content">
         <form method="POST" action="../../actions/authors/update.php">
@@ -38,7 +52,7 @@ $author = getAuthor();
             </div>
             <div class="form-actions">
               <a href="index.php" class="btn btn-outline">Batal</a>
-              <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+              <button type="submit" name="update" class="btn btn-primary">Simpan Perubahan</button>
             </div>
           </div>
         </form>
